@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         return Observable.create { emitter ->
             var first = 0
             var second = 1
-            var fib = first + second
+            var fib = first
             while (!emitter.isDisposed) {
                 emitter.onNext(fib.toString())
                 fib = first + second
