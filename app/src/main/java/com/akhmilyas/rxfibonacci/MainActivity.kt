@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity() {
         inputDisposable = fib_input
             .textChanges()
             .debounce(300, TimeUnit.MILLISECONDS)
+            .distinctUntilChanged()
             .map {
                 if (it.isEmpty() || !it.isDigitsOnly()) 0L
                 else it.toString().toLong()
             }
-            .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { amountOfFibonacci ->
                 if (amountOfFibonacci in 1..30) {
