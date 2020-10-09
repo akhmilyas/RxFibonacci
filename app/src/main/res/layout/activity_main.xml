@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <Button
         android:id="@+id/fib_button"
         android:layout_width="wrap_content"
@@ -39,6 +38,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fib_input" />
+        app:layout_constraintTop_toBottomOf="@id/fib_input"
+        tools:itemCount="42"
+        tools:listitem="@layout/fib_number" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
