@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         inputDisposable = fib_input
             .textChanges()
             .map {
-                if (it.isEmpty() or !it.isDigitsOnly()) 0L
+                if (it.isEmpty() || !it.isDigitsOnly()) 0L
                 else it.toString().toLong()
             }
             .subscribe { amountOfFibonacci ->
