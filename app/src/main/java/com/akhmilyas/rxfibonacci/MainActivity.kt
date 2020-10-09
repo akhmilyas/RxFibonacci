@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -83,20 +82,6 @@ class MainActivity : AppCompatActivity() {
                     fib_input.isEnabled = true
                     Toast.makeText(this, "All numbers are displayed", Toast.LENGTH_LONG).show()
                 })
-    }
-
-    private fun createFibonacciObservable(): Observable<String> {
-        return Observable.create { emitter ->
-            var first = 0
-            var second = 1
-            var fib = first
-            while (!emitter.isDisposed) {
-                emitter.onNext(fib.toString())
-                fib = first + second
-                first = second
-                second = fib
-            }
-        }
     }
 
     override fun onStop() {
