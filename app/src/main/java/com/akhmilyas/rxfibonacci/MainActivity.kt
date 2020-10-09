@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             .subscribe { amountOfFibonacci ->
                 if (amountOfFibonacci in 1..30) {
                     fib_button.isEnabled = true
+                    fib_input.isEnabled = true
 
                     fib_button.setOnClickListener {
                         fib_input.isEnabled = false
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
                         fibonacciNumbers.clear()
                         disposableBag.clear()
-                        clearEditTextFocus(fib_input)
+                        fib_input.hideKeyboard()
 
                         val disposable = createFibonacciChain(amountOfFibonacci)
                         disposableBag.add(disposable)
