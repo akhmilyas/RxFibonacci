@@ -8,7 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 class FibonacciAdapter(private val fibNumbers: List<String>) :
     RecyclerView.Adapter<FibonacciAdapter.FibonacciViewHolder>() {
 
-    class FibonacciViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class FibonacciViewHolder(private val textView: TextView) : RecyclerView.ViewHolder(textView) {
+        fun bind(fibNumber: String) {
+            textView.text = fibNumber
+        }
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,7 +25,7 @@ class FibonacciAdapter(private val fibNumbers: List<String>) :
     }
 
     override fun onBindViewHolder(holder: FibonacciViewHolder, position: Int) {
-        holder.textView.text = fibNumbers[position]
+        holder.bind(fibNumbers[position])
     }
 
     override fun getItemCount() = fibNumbers.size
