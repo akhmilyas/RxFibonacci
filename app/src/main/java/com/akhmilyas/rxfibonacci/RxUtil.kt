@@ -1,0 +1,11 @@
+package com.akhmilyas.rxfibonacci
+
+import io.reactivex.rxjava3.core.Observable
+import java.util.concurrent.TimeUnit
+
+fun <T> Observable<T>.delayEach(interval: Long, timeUnit: TimeUnit): Observable<T> =
+    Observable.zip(
+        this,
+        Observable.interval(interval, timeUnit),
+        { item, _ -> item }
+    )

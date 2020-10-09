@@ -1,10 +1,7 @@
 package com.akhmilyas.rxfibonacci
 
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
@@ -15,6 +12,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.TimeUnit
 
 const val DELAY = 500L
 
@@ -63,16 +61,11 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun clearEditTextFocus(editText: EditText) {
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editText.windowToken, 0)
-        editText.clearFocus()
-    }
-
     private fun createFibonacciChain(amountOfFibonacci: Long): Disposable {
         return createFibonacciObservable()
             .subscribeOn(Schedulers.computation())
             .take(amountOfFibonacci)
+            .delayEach(DELAY, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { number ->
@@ -99,7 +92,6 @@ class MainActivity : AppCompatActivity() {
                 fib = first + second
                 first = second
                 second = fib
-                SystemClock.sleep(DELAY)
             }
         }
     }
