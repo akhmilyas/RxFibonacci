@@ -19,8 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var inputDisposable: Disposable
     private val disposableBag: CompositeDisposable = CompositeDisposable()
-    private var fibonacciNumbers: ArrayList<String> = arrayListOf()
+    private val fibonacciNumbers: ArrayList<String> = arrayListOf()
     private val adapter = FibonacciAdapter(fibonacciNumbers)
+    private var amountOfFibonacci = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
+        fib_button.setOnClickListener {
+            fib_input.isEnabled = false
+            fib_button.isEnabled = false
+
+            fibonacciNumbers.clear()
+            disposableBag.clear()
+            fib_input.hideKeyboard()
+
+            createFibonacciChain(amountOfFibonacci)
+                .addToComposite(disposableBag)
+        }
 
         inputDisposable = fib_input
             .textChanges()
@@ -45,18 +58,7 @@ class MainActivity : AppCompatActivity() {
                 if (amountOfFibonacci in 1..30) {
                     fib_button.isEnabled = true
                     fib_input.isEnabled = true
-
-                    fib_button.setOnClickListener {
-                        fib_input.isEnabled = false
-                        fib_button.isEnabled = false
-
-                        fibonacciNumbers.clear()
-                        disposableBag.clear()
-                        fib_input.hideKeyboard()
-
-                        val disposable = createFibonacciChain(amountOfFibonacci)
-                        disposableBag.add(disposable)
-                    }
+                    this.amountOfFibonacci = amountOfFibonacci
                 } else {
                     fib_button.isEnabled = false
                 }
